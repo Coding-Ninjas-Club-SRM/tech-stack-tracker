@@ -9,7 +9,7 @@ const AddUser = () => {
   const router = useRouter();
 
   const onSubmit = async (data) => {
-    const { email, designation } = data;
+    const { email, designation, domain } = data;
 
     try {
       const fetchOptions = {
@@ -17,6 +17,7 @@ const AddUser = () => {
         body: JSON.stringify({
           email,
           designation,
+          domain,
         }),
       };
       const response = await fetch("/api/addUser", fetchOptions);
@@ -59,6 +60,27 @@ const AddUser = () => {
             />
           </div>
 
+          <div className="mb-6">
+            <label
+              for="domain"
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+            >
+              Designation
+            </label>
+            <select
+              id="domain"
+              className="input-default"
+              {...register("domain")}
+            >
+              <option value="web">Web Development</option>
+              <option value="app">App Development</option>
+              <option value="aiml">AI-ML</option>
+              <option value="cp" disabled>
+                Competitive Programming
+              </option>
+            </select>
+          </div>
+
           <div class="mb-6">
             <label
               for="designation"
@@ -71,10 +93,10 @@ const AddUser = () => {
               class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               {...register("designation")}
             >
-              <option>Member</option>
-              <option>Associate</option>
-              <option>Head</option>
-              <option>Board</option>
+              <option value="member">Member</option>
+              <option value="associate">Associate</option>
+              <option value="head">Head</option>
+              <option value="board">Board</option>
             </select>
           </div>
 

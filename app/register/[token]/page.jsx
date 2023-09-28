@@ -9,6 +9,7 @@ const Register = ({ params }) => {
   const [fetching, setFetching] = useState(true);
   const [email, setEmail] = useState(null);
   const [designation, setDesignation] = useState(null);
+  const [domain, setDomain] = useState(null);
 
   console.log(params);
   const token = params.token;
@@ -30,6 +31,7 @@ const Register = ({ params }) => {
       setFetching(false);
       setEmail(data.email);
       setDesignation(data.designation);
+      setDomain(data.domain);
     };
 
     verify();
@@ -47,6 +49,7 @@ const Register = ({ params }) => {
         password,
         year,
         department,
+        domain,
         techStack,
         designation,
       }),
@@ -197,6 +200,32 @@ const Register = ({ params }) => {
                   required
                   {...register("department")}
                 />
+              </div>
+
+              <div className="mb-6">
+                <label
+                  for="domain"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Designation
+                </label>
+                <select
+                  id="domain"
+                  className="input-default"
+                  disabled
+                  {...register("domain")}
+                >
+                  <option selected hidden>
+                    {domain === "web" && "Web Development"}
+                    {domain === "app" && "App Development"}
+                    {domain === "aiml" && "AI-ML"}
+                    {domain === "cp" && "Competitive Programming"}
+                  </option>
+                  <option>Member</option>
+                  <option>Associate</option>
+                  <option>Head</option>
+                  <option>Board</option>
+                </select>
               </div>
 
               <div className="mb-6">

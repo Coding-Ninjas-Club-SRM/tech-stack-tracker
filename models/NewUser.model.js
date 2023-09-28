@@ -11,6 +11,11 @@ const NewUserSchema = new Schema({
     enum: ["member", "associate", "head", "board"],
     required: true,
   },
+  domain: {
+    type: String,
+    enum: ["web", "app", "aiml", "cp"],
+    required: true,
+  },
   token: {
     type: String,
     required: true,

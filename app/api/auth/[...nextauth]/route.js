@@ -28,7 +28,6 @@ const authOptions = {
         if (!email || !password) return null;
 
         const user = await User.findOne({ email });
-        console.log(password, bcrypt.compareSync(password, user.password));
 
         if (!bcrypt.compareSync(password, user.password)) return null;
 

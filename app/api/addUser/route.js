@@ -4,11 +4,11 @@ import nodemailer from "nodemailer";
 import { v4 as uuid } from "uuid";
 
 export const POST = async (request) => {
-  const { email, designation } = await request.json();
+  const { email, designation, domain } = await request.json();
   try {
     await connectToDB();
 
-    if (!email || !designation)
+    if (!email || !designation || !domain)
       return new Response(JSON.stringify({ message: "Missing fields" }), {
         status: 400,
       });
@@ -50,7 +50,8 @@ export const POST = async (request) => {
 
     const newUser = new NewUser({
       email,
-      designation: designation.toLowerCase(),
+      designation,
+      domain,
       token,
     });
 

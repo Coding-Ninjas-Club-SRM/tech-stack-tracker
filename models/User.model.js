@@ -12,20 +12,24 @@ const UserSchema = new Schema({
   },
   password: {
     type: String,
-    default: null,
     required: true,
   },
   year: {
     type: Number,
-    required: false,
+    required: true,
   },
   department: {
     type: String,
-    required: false,
+    required: true,
+  },
+  domain: {
+    type: String,
+    enum: ["web", "app", "aiml", "cp"],
+    required: true,
   },
   techStack: {
     type: String,
-    required: false,
+    required: true,
   },
   designation: {
     type: String,

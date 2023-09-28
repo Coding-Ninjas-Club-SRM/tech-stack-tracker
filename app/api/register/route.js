@@ -10,6 +10,7 @@ export const POST = async (request) => {
     password,
     year,
     department,
+    domain,
     techStack,
     designation,
   } = await request.json();
@@ -22,6 +23,7 @@ export const POST = async (request) => {
       password,
       year,
       department,
+      domain,
       techStack,
       designation,
     );
@@ -32,6 +34,7 @@ export const POST = async (request) => {
       !password ||
       !year ||
       !department ||
+      !domain ||
       !techStack ||
       !designation
     )
@@ -49,6 +52,7 @@ export const POST = async (request) => {
       password: hashedPassword,
       year,
       department,
+      domain,
       techStack,
       designation,
     });
