@@ -24,7 +24,7 @@ const UserSchema = new Schema({
     required: false,
   },
   techStack: {
-    type: [String],
+    type: String,
     required: false,
   },
   designation: {
