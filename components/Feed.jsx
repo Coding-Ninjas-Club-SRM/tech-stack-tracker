@@ -179,8 +179,8 @@ const Feed = () => {
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
               <th className="px-6 py-3 whitespace-normal">Name</th>
-              <th className="px-6 py-3 sr-only sm:not-sr-only">Domain</th>
-              <th className="px-6 py-3 sr-only sm:not-sr-only">Position</th>
+              <th className="px-6 py-3 hidden sm:table-cell">Domain</th>
+              <th className="px-6 py-3 hidden sm:table-cell">Position</th>
               <th className="px-6 py-3">Tech Stack</th>
             </tr>
           </thead>
@@ -197,12 +197,12 @@ const Feed = () => {
                 >
                   {result.name}
                 </th>
-                <td className="px-6 py-4  sr-only sm:not-sr-only">
+                <td className="px-6 py-4 hidden sm:table-cell">
                   {(result.domain === "aiml" && "AI-ML") ||
                     (result.domain === "app" && "App Dev") ||
                     (result.domain === "web" && "Web Dev")}
                 </td>
-                <td className="px-6 py-4  sr-only sm:not-sr-only">
+                <td className="px-6 py-4 hidden sm:table-cell">
                   {result.designation.charAt(0).toUpperCase() +
                     result.designation.slice(1)}
                 </td>
