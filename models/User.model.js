@@ -39,13 +39,11 @@ const UserSchema = new Schema(
     },
     github: {
       type: String,
-      default: "",
-      required: true,
+      required: false,
     },
     linkedin: {
       type: String,
-      default: "",
-      required: true,
+      required: false,
     },
   },
   {
