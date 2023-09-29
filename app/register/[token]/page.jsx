@@ -75,8 +75,10 @@ const Register = ({ params }) => {
 
     name = name
       .split(" ")
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join(" ");
+
+    department = department.toUpperCase();
 
     const fetchOptions = {
       method: "POST",
