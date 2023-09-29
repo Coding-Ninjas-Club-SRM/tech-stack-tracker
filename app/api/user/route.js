@@ -1,6 +1,7 @@
 import { User } from "@models";
 import { connectToDB } from "@utils";
 
+export const revalidate = 1;
 export const GET = async (request) => {
   try {
     await connectToDB();

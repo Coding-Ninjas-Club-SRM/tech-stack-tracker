@@ -25,7 +25,9 @@ const Feed = () => {
 
   useEffect(() => {
     const fetchResults = async () => {
-      const response = await fetch("/api/user");
+      const response = await fetch("/api/user", {
+        cache: "no-store",
+      });
       const data = await response.json();
       setResults(data);
       setFilteredResults(data);
@@ -90,8 +92,8 @@ const Feed = () => {
           >
             {domain === "" && "Domain"}
             {domain === "aiml" && "AI-ML"}
-            {domain === "app" && "App Development"}
-            {domain === "web" && "Web Development"}{" "}
+            {domain === "app" && "App Dev"}
+            {domain === "web" && "Web Dev"}{" "}
             <svg
               className="w-2.5 h-2.5 ml-2.5"
               aria-hidden="true"
