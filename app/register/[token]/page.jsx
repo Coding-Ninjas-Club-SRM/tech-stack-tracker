@@ -1,11 +1,13 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
 const Register = ({ params }) => {
+  const { data: session, update } = useSession();
   const [fetching, setFetching] = useState(true);
   const [email, setEmail] = useState(null);
   const [designation, setDesignation] = useState(null);
@@ -59,6 +61,7 @@ const Register = ({ params }) => {
 
     if (response.status === 201) {
       toast.success(responseData.message);
+      update({ user: responseData.newUser });
       router.push("/");
     } else {
       toast.error(responseData.message);

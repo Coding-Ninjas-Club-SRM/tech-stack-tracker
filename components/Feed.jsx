@@ -76,7 +76,7 @@ const Feed = () => {
             />
             <button
               type="submit"
-              className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 hidden sm:block"
             >
               Search
             </button>
@@ -140,7 +140,7 @@ const Feed = () => {
                       setDomain("app");
                     }}
                   >
-                    App Development
+                    App Dev
                   </a>
                 </li>
                 <li>
@@ -152,7 +152,7 @@ const Feed = () => {
                       setDomain("web");
                     }}
                   >
-                    Web Development
+                    Web Dev
                   </a>
                 </li>
                 <hr />
@@ -174,20 +174,20 @@ const Feed = () => {
         </div>
       </form>
 
-      <div className="relative overflow-x-auto shadow-md sm:rounded-lg mt-8">
+      <div className="relative overflow-x-auto shadow-md rounded-lg mt-8">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400 table-fixed">
           <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
-              <th className="px-6 py-3">Name</th>
-              <th className="px-6 py-3">Domain</th>
-              <th className="px-6 py-3">Position</th>
+              <th className="px-6 py-3 whitespace-normal">Name</th>
+              <th className="px-6 py-3 sr-only sm:not-sr-only">Domain</th>
+              <th className="px-6 py-3 sr-only sm:not-sr-only">Position</th>
               <th className="px-6 py-3">Tech Stack</th>
             </tr>
           </thead>
           <tbody>
             {filteredResults.map((result) => (
               <tr
-                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer"
+                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer whitespace-normal"
                 key={result.index}
                 onClick={() => router.push(`/user/${result._id}`)}
               >
@@ -197,12 +197,12 @@ const Feed = () => {
                 >
                   {result.name}
                 </th>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4  sr-only sm:not-sr-only">
                   {(result.domain === "aiml" && "AI-ML") ||
-                    (result.domain === "app" && "App Development") ||
-                    (result.domain === "web" && "Web Development")}
+                    (result.domain === "app" && "App Dev") ||
+                    (result.domain === "web" && "Web Dev")}
                 </td>
-                <td className="px-6 py-4">
+                <td className="px-6 py-4  sr-only sm:not-sr-only">
                   {result.designation.charAt(0).toUpperCase() +
                     result.designation.slice(1)}
                 </td>

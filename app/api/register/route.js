@@ -60,7 +60,7 @@ export const POST = async (request) => {
     await newUser.save();
 
     return new Response(
-      JSON.stringify({ message: "Registered Successfully" }),
+      JSON.stringify({ message: "Registered Successfully", newUser }),
       {
         status: 201,
       },
