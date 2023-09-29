@@ -30,7 +30,7 @@ export const POST = async (request) => {
         pass: process.env.GMAIL_PASSWORD,
       },
     });
-    await new Prmoise((resolve, reject) => {
+    await new Promise((resolve, reject) => {
       mailTransporter.verify((error, success) => {
         if (error) {
           console.log(error);
