@@ -39,10 +39,13 @@ const Register = ({ params }) => {
   }, [token]);
 
   const onSubmit = async (data) => {
-    const { name, password, year, department, techStack, github, linkedin } =
+    let { name, password, year, department, techStack, github, linkedin } =
       data;
 
-    console.log(github, typeof github);
+    name = name
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
 
     const fetchOptions = {
       method: "POST",
