@@ -150,24 +150,29 @@ const Profile = ({ params }) => {
               </div>
             </div>
           )}
-          <h3 className="mt-5 mb-2 text-sm font-semibold leading-[1.15] cursor-pointer text-blue-500">
-            <a
-              href={`${profile.gitub}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {profile.github}
-            </a>
-          </h3>
-          <h3 className="mb-5 mt-2 text-sm font-semibold leading-[1.15] cursor-pointer text-blue-500">
-            <a
-              href={`${profile.gitub}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {profile.linkedin}
-            </a>
-          </h3>
+          {profile.github && (
+            <h3 className="mt-5 mb-2 text-sm font-semibold leading-[1.15] cursor-pointer text-blue-500">
+              <a
+                href={profile?.github}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {profile.github}
+              </a>
+            </h3>
+          )}
+
+          {profile.linkedin && (
+            <h3 className="mb-5 mt-2 text-sm font-semibold leading-[1.15] cursor-pointer text-blue-500">
+              <a
+                href={profile.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {profile.linkedin}
+              </a>
+            </h3>
+          )}
           <p>
             {profile.year === 1 && (
               <span>
