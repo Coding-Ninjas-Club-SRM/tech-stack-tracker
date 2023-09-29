@@ -27,10 +27,6 @@ export const Navbar = () => {
     fetchProfile();
   }, [session]);
 
-  useEffect(() => {
-    console.log(profile?._id);
-  }, [profile]);
-
   return (
     <nav className="text-white w-screen bg-gray-800 flex justify-between items-center p-4 mb-10">
       <Link href="/" className="flex gap-2 justify-center items-center">
