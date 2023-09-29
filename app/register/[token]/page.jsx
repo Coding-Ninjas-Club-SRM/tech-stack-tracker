@@ -52,6 +52,8 @@ const Register = ({ params }) => {
 
     let regex = /.*[a-z].*/;
 
+    console.log(password, repassword, password === repassword);
+
     if (password !== repassword) return toast.error("Passwords do not match");
     if (password.length < 8)
       return toast.error("Password must be atleast 8 characters long");
@@ -59,15 +61,15 @@ const Register = ({ params }) => {
       return toast.error(
         "Password must contain a lowercase letter, an uppercase letter, a character and a number",
       );
-    regex = /(?=.*[A-Z])(?=.*[a-z])/;
-    if (!regex.test(name))
+    regex = /^(?=.*[a-z])(?=.*[A-Z]).+$/;
+    if (!regex.test(password))
       return toast.error(
         "Password must contain an uppercase letter, a character and a number",
       );
     regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
     if (!regex.test(password))
       return toast.error("Password must contain a number and a character");
-    regex = /^ (?=.* [a - z])(?=.* [A - Z])(?=.* [!@#$ %^&* 0 - 9]).+ $ /;
+    regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&])(?=.*\d).+$/;
     if (!regex.test(password))
       return toast.error("Password must contain a character");
 
@@ -153,7 +155,7 @@ const Register = ({ params }) => {
               </div>
 
               <div className="grid md:grid-cols-2 md:gap-6">
-                <div className="mb-6">
+                <div className="mb-1">
                   <label
                     for="password"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -171,7 +173,7 @@ const Register = ({ params }) => {
                   />
                 </div>
 
-                <div className="mb-6">
+                <div className="mb-1">
                   <label
                     for="repassword"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -189,6 +191,13 @@ const Register = ({ params }) => {
                   />
                 </div>
               </div>
+              <p
+                id="helper-text-explanation"
+                className=" mb-6 mt-2 text-sm text-gray-500 dark:text-gray-400"
+              >
+                Your password must contain a lowercase letter, an uppercase
+                letter, a number and a character.
+              </p>
 
               <div className="mb-6">
                 <label
