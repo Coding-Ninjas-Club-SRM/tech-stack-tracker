@@ -13,7 +13,6 @@ const Register = ({ params }) => {
   const [designation, setDesignation] = useState(null);
   const [domain, setDomain] = useState(null);
 
-  console.log(params);
   const token = params.token;
 
   const { register, handleSubmit, watch } = useForm();
@@ -40,7 +39,10 @@ const Register = ({ params }) => {
   }, [token]);
 
   const onSubmit = async (data) => {
-    const { name, password, year, department, techStack } = data;
+    const { name, password, year, department, techStack, github, linkedin } =
+      data;
+
+    console.log(github, typeof github);
 
     const fetchOptions = {
       method: "POST",
@@ -54,6 +56,8 @@ const Register = ({ params }) => {
         domain,
         techStack,
         designation,
+        github,
+        linkedin,
       }),
     };
     const response = await fetch("/api/register", fetchOptions);
@@ -207,6 +211,36 @@ const Register = ({ params }) => {
 
               <div className="mb-6">
                 <label
+                  for="github"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Github URL
+                </label>
+                <input
+                  type="text"
+                  id="github"
+                  className="input-default"
+                  {...register("github")}
+                />
+              </div>
+
+              <div className="mb-6">
+                <label
+                  for="github"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Linkedin URL
+                </label>
+                <input
+                  type="text"
+                  id="linkedin"
+                  className="input-default"
+                  {...register("linkedin")}
+                />
+              </div>
+
+              <div className="mb-6">
+                <label
                   for="domain"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
@@ -272,7 +306,7 @@ const Register = ({ params }) => {
 
               <button
                 type="submit"
-                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 mb-4"
               >
                 Register
               </button>

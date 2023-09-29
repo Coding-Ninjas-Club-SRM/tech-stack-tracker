@@ -1,5 +1,6 @@
 "use client";
 
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -14,13 +15,12 @@ const Feed = () => {
 
   useEffect(() => {
     const regex = new RegExp(search, "gi");
-    setFilteredResults(
-      results.filter((result) => {
-        if (domain === "") return regex.test(result.name);
-        else if (search === "") return result.domain === domain;
-        else return regex.test(result.name) && result.domain === domain;
-      }),
-    );
+    const resultf = results.filter((result) => {
+      if (domain === "") return regex.test(result.name);
+      else if (search === "") return result.domain === domain;
+      else return regex.test(result.name) && result.domain === domain;
+    });
+    setFilteredResults(resultf);
   }, [domain, search]);
 
   useEffect(() => {
@@ -29,12 +29,14 @@ const Feed = () => {
         cache: "no-store",
       });
       const data = await response.json();
+      data.sort((a, b) => new Date(b.updatedAt) - new Date(a.updatedAt));
       setResults(data);
       setFilteredResults(data);
     };
 
     fetchResults();
   }, []);
+
   return (
     <section className="w-screen h-auto p-4">
       <form
@@ -59,9 +61,9 @@ const Feed = () => {
               >
                 <path
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                 />
               </svg>
@@ -103,9 +105,9 @@ const Feed = () => {
             >
               <path
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="m1 1 4 4 4-4"
               />
             </svg>
@@ -185,10 +187,10 @@ const Feed = () => {
             </tr>
           </thead>
           <tbody>
-            {filteredResults.map((result) => (
+            {filteredResults.map((result, index) => (
               <tr
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 cursor-pointer whitespace-normal"
-                key={result.index}
+                key={index}
                 onClick={() => router.push(`/user/${result._id}`)}
               >
                 <th

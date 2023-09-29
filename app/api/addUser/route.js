@@ -1,4 +1,4 @@
-import { NewUser } from "@models";
+import { NewUser, User } from "@models";
 import { connectToDB } from "@utils";
 import nodemailer from "nodemailer";
 import { v4 as uuid } from "uuid";
@@ -14,7 +14,7 @@ export const POST = async (request) => {
       });
     const token = uuid();
 
-    const alreadyExists = await NewUser.findOne({ email });
+    let alreadyExists = await NewUser.findOne({ email });
     if (alreadyExists)
       return new Response(
         JSON.stringify({ message: "Activation link already sent" }),
@@ -22,6 +22,12 @@ export const POST = async (request) => {
           status: 409,
         },
       );
+
+    alreadyExists = await User.findOne({ email });
+    if (alreadyExists)
+      return new Response(JSON.stringify({ message: "User already exists" }), {
+        status: 409,
+      });
 
     const mailTransporter = nodemailer.createTransport({
       service: "gmail",

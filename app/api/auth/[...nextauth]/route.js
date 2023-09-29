@@ -5,6 +5,10 @@ import nextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 
 const authOptions = {
+  session: {
+    strategy: "jwt",
+  },
+  debug: true,
   providers: [
     CredentialsProvider({
       name: "Credentials",
@@ -16,7 +20,6 @@ const authOptions = {
 
       callbacks: {
         async redirect(url, baseurl) {
-          console.log(url);
           return "/";
         },
       },
@@ -30,6 +33,8 @@ const authOptions = {
         const user = await User.findOne({ email });
 
         if (!bcrypt.compareSync(password, user.password)) return null;
+
+        user.id = user._id;
 
         return user;
       },

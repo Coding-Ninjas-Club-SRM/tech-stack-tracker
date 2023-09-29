@@ -3,11 +3,33 @@
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const Navbar = () => {
   const { data: session } = useSession();
+  const [profile, setProfile] = useState(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      const fetchOptions = {
+        method: "GET",
+      };
+      const response = await fetch(
+        `/api/user?email=${session?.user?.email}`,
+        fetchOptions,
+      );
+      const data = await response.json();
+
+      if (response.status === 200) setProfile(data);
+    };
+
+    fetchProfile();
+  }, [session]);
+
+  useEffect(() => {
+    console.log(profile?._id);
+  }, [profile]);
 
   return (
     <nav className="text-white w-screen bg-gray-800 flex justify-between items-center p-4 mb-10">
@@ -48,9 +70,9 @@ export const Navbar = () => {
             <div className="font-medium truncate">{session?.user?.email}</div>
           </div>
           <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-            <li>
+            <li onClick={() => setToggleDropdown(false)}>
               <Link
-                href="/"
+                href={`/user/${profile?._id}`}
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 My Profile

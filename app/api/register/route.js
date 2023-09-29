@@ -13,20 +13,11 @@ export const POST = async (request) => {
     domain,
     techStack,
     designation,
+    github,
+    linkedin,
   } = await request.json();
 
   try {
-    console.log(
-      token,
-      name,
-      email,
-      password,
-      year,
-      department,
-      domain,
-      techStack,
-      designation,
-    );
     if (
       !token ||
       !name ||
@@ -54,7 +45,9 @@ export const POST = async (request) => {
       department,
       domain,
       techStack,
+      github,
       designation,
+      linkedin,
     });
 
     await newUser.save();
