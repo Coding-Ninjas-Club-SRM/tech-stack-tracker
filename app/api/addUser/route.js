@@ -30,6 +30,17 @@ export const POST = async (request) => {
         pass: process.env.GMAIL_PASSWORD,
       },
     });
+    await new Prmoise((resolve, reject) => {
+      mailTransporter.verify((error, success) => {
+        if (error) {
+          console.log(error);
+          reject(error);
+        } else {
+          console.log("Nodemailer is ready");
+          resolve(success);
+        }
+      });
+    });
     const activationLink = `${process.env.NEXTAUTH_URL}/register/${token}`;
     const mailDetails = {
       from: process.env.GMAIL_USER,
@@ -40,12 +51,16 @@ export const POST = async (request) => {
          <a href="${activationLink}">Activate Account</a>`,
     };
 
-    mailTransporter.sendMail(mailDetails, function (err, data) {
-      if (err) {
-        console.log("Error Occurs");
-      } else {
-        console.log("Email sent successfully");
-      }
+    await new Promise((resolve, reject) => {
+      mailTransporter.sendMail(mailDetails, function (err, data) {
+        if (err) {
+          console.log("Error Occurs");
+          reject(err);
+        } else {
+          console.log("Email sent successfully");
+          resolve(data);
+        }
+      });
     });
 
     const newUser = new NewUser({
