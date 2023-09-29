@@ -39,8 +39,37 @@ const Register = ({ params }) => {
   }, [token]);
 
   const onSubmit = async (data) => {
-    let { name, password, year, department, techStack, github, linkedin } =
-      data;
+    let {
+      name,
+      password,
+      repassword,
+      year,
+      department,
+      techStack,
+      github,
+      linkedin,
+    } = data;
+
+    let regex = /.*[a-z].*/;
+
+    if (password !== repassword) return toast.error("Passwords do not match");
+    if (password.length < 8)
+      return toast.error("Password must be atleast 8 characters long");
+    if (!regex.test(password))
+      return toast.error(
+        "Password must contain a lowercase letter, an uppercase letter, a character and a number",
+      );
+    regex = /(?=.*[A-Z])(?=.*[a-z])/;
+    if (!regex.test(name))
+      return toast.error(
+        "Password must contain an uppercase letter, a character and a number",
+      );
+    regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/;
+    if (!regex.test(password))
+      return toast.error("Password must contain a number and a character");
+    regex = /^ (?=.* [a - z])(?=.* [A - Z])(?=.* [!@#$ %^&* 0 - 9]).+ $ /;
+    if (!regex.test(password))
+      return toast.error("Password must contain a character");
 
     name = name
       .split(" ")
@@ -138,18 +167,6 @@ const Register = ({ params }) => {
                     required
                     {...register("password", {
                       required: true,
-                      validate: (value) => {
-                        if (value.length < 8)
-                          return toast.error(
-                            "Password must be at least 8 characters long",
-                          );
-                        let regex =
-                          /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*0-9]).+$/;
-                        if (!regex.test(value))
-                          return toast.error(
-                            "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character",
-                          );
-                      },
                     })}
                   />
                 </div>
@@ -168,10 +185,6 @@ const Register = ({ params }) => {
                     required
                     {...register("repassword", {
                       required: true,
-                      validate: (value) => {
-                        if (watch("password") !== value)
-                          return toast.error("Passwords don't match");
-                      },
                     })}
                   />
                 </div>
